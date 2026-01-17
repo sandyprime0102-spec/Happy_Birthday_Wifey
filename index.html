@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday My Darling Wifey 🎂🎁❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+section {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.active {
+  display: block;
+}
+
+button {
+  background: pink;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.fade {
+  animation: fade 1.5s ease-in-out;
+}
+
+@keyframes fade {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.hearts {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.hearts span {
+  position: absolute;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(-100vh); opacity: 0;}
+}
+
+img {
+  width: 90%;
+  max-width: 300px;
+  border-radius: 20px;
+  margin: 15px 0;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="music.mp3" loop></audio>
+
+<!-- STEP 1 -->
+<section class="active fade" id="step1">
+  <h2>🎂 Blow the candles 🎂</h2>
+  <p>(Tap anywhere)</p>
+</section>
+
+<!-- STEP 2 -->
+<section id="step2" class="fade">
+  <h2>🎈 Click the balloon 🎈</h2>
+  <button onclick="next(3)">POP 🎈</button>
+</section>
+
+<!-- STEP 3 -->
+<section id="step3" class="fade">
+  <h2>🎆 Happy Birthday Sriza 🎆</h2>
+  <button onclick="next(4)">There’s a surprise for you 💖</button>
+</section>
+
+<!-- STEP 4 -->
+<section id="step4" class="fade">
+  <h1>💖 Happy Birthday My Darling Wifey 💖</h1>
+
+  <p>
+    Today is not just your birthday… it’s the day the most beautiful soul came into this world 🌍✨<br><br>
+    You are my calm in chaos, my smile on hard days, my peace when everything feels heavy 💕<br><br>
+    Every time you laugh, my heart forgets how to beat properly. Loving you feels natural — like breathing 🌸<br><br>
+    I promise to stand by you, love you endlessly, and choose you every single day 💍<br><br>
+    Happy Birthday my forever ❤️
+  </p>
+
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+  <img src="photo3.jpg">
+  <img src="photo4.jpg">
+  <img src="photo5.jpg">
+</section>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+let step = 1;
+document.body.onclick = () => {
+  if(step === 1){
+    document.getElementById("music").play();
+    next(2);
+  }
+};
+
+function next(n){
+  document.getElementById("step"+step).classList.remove("active");
+  step = n;
+  document.getElementById("step"+step).classList.add("active");
+  hearts();
+}
+
+function hearts(){
+  for(let i=0;i<20;i++){
+    let s=document.createElement("span");
+    s.innerHTML="❤️";
+    s.style.left=Math.random()*100+"%";
+    s.style.animationDuration=(3+Math.random()*3)+"s";
+    document.getElementById("hearts").appendChild(s);
+    setTimeout(()=>s.remove(),6000);
+  }
+}
+</script>
+
+</body>
+</html>
