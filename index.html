@@ -5,285 +5,339 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday My Darling Wifey 🎂🎁❤️</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
-            color: #333;
+        /* Aesthetic Definition  */
+        :root {
+            --pink: #FFB6BE;
+            --orange: #FAC898;
+            --white-glass: rgba(255, 255, 255, 0.85);
+            --romantic-red: #ff477e;
+            --text-main: #4a3629;
+        }
+
+        body, html {
+         [span_4](start_span)[span_4](end_span)[span_6](start_span)[span_6](end_span)   margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Palatino', 'Georgia', serif;
+            background: linear-gradient(135deg, var(--pink), var(--orange));
+            color: var(--text-main);
             overflow-x: hidden;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: all 1s ease;
+            scroll-behavior: smooth;
         }
-        .step {
-            display: none;
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
+
+        /* Scene Architecture [span_90](start_span)[span_90](end_span)[span_91](start_span)[span_91](end_span) */
+       .scene {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100vh;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            animation: sceneFade 0.8s ease-in-out forwards;
         }
-        .active {
-            display: block;
+       .active { display: flex; }
+
+        @keyframes sceneFade {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
         }
-        h1, h2 {
-            font-family: 'Arial', sans-serif;
-            color: #d63384;
+
+        /* Step 1: Cake & Candle Physics  */
+       .cake {
+            position: relative; width: 200px; height: 120px;
+            background: #fff; border-radius: 10px 10px 0 0;
+      [span_42](start_span)[span_42](end_span)[span_44](start_span)[span_44](end_span)      box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-top: 50px;
         }
-        .cake-container {
-            position: relative;
-            display: inline-block;
+       .cake::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 20px;
+            background: #ff85a2; border-radius: 10px 10px 0 0;
         }
-        .cake {
-            width: 300px;
-            height: auto;
+       .candle {
+            position: absolute; width: 10px; height: 40px;
+            background: #ffd1dc; border-radius: 5px; top: -40px;
         }
-        .flame {
-            position: absolute;
-            width: 20px;
-            height: 40px;
-            background: linear-gradient(to top, #ff4500, #ffd700);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            top: -40px;
-            animation: flicker 0.5s infinite alternate;
+       .c1 { left: 40px; }.c2 { left: 95px; }.c3 { left: 150px; }
+        
+       .flame {
+            position: absolute; width: 12px; height: 25px;
+            background: radial-gradient(#fff, #ffa500, #ff4500);
+            border-radius: 50% 50% 20% 20%; top: -22px; left: -1px;
+            animation: flicker 0.1s infinite alternate;
+            box-shadow: 0 0 15px #ffa500;
         }
-        .flame:nth-child(1) { left: 120px; }
-        .flame:nth-child(2) { left: 140px; }
-        .flame:nth-child(3) { left: 160px; }
         @keyframes flicker {
-            0% { transform: scaleY(1); opacity: 1; }
-            100% { transform: scaleY(0.9); opacity: 0.8; }
+            0% { transform: scale(1) rotate(-2deg); }
+            100% { transform: scale(1.1) rotate(2deg); }
         }
-        .smoke {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(200, 200, 200, 0.5);
-            border-radius: 50%;
-            top: -60px;
-            animation: smoke 1s ease-out forwards;
+
+        /* Step 2: Balloon Mechanics  */
+       .balloon {
+            width: 120px; height: 150px; background: var(--romantic-red);
+            border-radius: 80% 80% 80% [span_47](start_span)[span_47](end_span)[span_49](start_span)[span_49](end_span)80%; position: relative;
+            cursor: pointer; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2);
+            animation: balloonFloat 3s infinite ease-in-out;
         }
-        @keyframes smoke {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(2) translateY(-20px); }
+       .balloon::after {
+            content: ''; position: absolute; bottom: -8px; left: 50px;
+            border-left: 10px solid transparent; border-right: 10px solid transparent;
+            border-bottom: 15px solid var(--romantic-red);
         }
-        .balloon {
-            width: 200px;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.3s;
+       .string {
+            width: 2px; height: 100px; background: rgba(255,255,255,0.4);
+            position: absolute; bottom: -110px; left: 59px;
         }
-        .balloon:hover {
-            transform: scale(1.1);
+        @keyframes balloonFloat {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
         }
-        .burst {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, #ff0000, transparent);
-            border-radius: 50%;
-            animation: burst 0.5s ease-out forwards;
+
+        /* Step 4: Commemorative Layout [span_92](start_span)[span_92](end_span)[span_93](start_span)[span_93](end_span) */
+       .final-scroll {
+            height: auto; overflow-y: auto; position: relative; padding: 40px 0;
+            display: none; align-items: center; flex-direction: column;
         }
-        @keyframes burst {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+       .message-card {
+            background: var(--white-glass); padding: 40px; border-radius: 30px;
+            max-width: 600px; text-align: center; margin: 0 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); line-height: 1.8;
         }
-        .hearts, .confetti {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
+       .photo-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px; width: 90%; max-width: 1000px; margin-top: 50px;
         }
-        .heart {
-            position: absolute;
-            color: #ff69b4;
-            font-size: 24px;
-            animation: float 3s linear infinite;
+       .photo-grid img {
+            width: 100%; aspect-ratio: 1/1; object-fit: cover;
+            border-radius: 20px; opacity: 0; transform: translateY(20px);
+            transition: 0.8s; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffd700;
-            animation: fall 3s linear infinite;
+       .reveal img { opacity: 1; transform: translateY(0); }
+
+        /* UI Elements  */
+        button {
+            padding: 15px 35px; border: none; back[span_75](start_span)[span_75](end_span)ground: var(--romantic-red);
+            color: white; border-radius: 50px; font-size: 1.1rem;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(255, 71, 126, 0.3);
+            transition: 0.3s; animation: pulse 2s infinite;
         }
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
-        .fireworks {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ff0000"/><circle cx="50" cy="50" r="1" fill="%23ffff00"/></svg>') repeat;
-            animation: fireworks 2s infinite;
-        }
-        @keyframes fireworks {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-        .surprise-btn {
-            background: #ff69b4;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .surprise-btn:hover {
-            background: #d63384;
-        }
-        .message {
-            font-size: 18px;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-        .photos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
-            object-fit: cover;
-            animation: fadeIn 2s ease-in;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        @media (max-width: 600px) {
-            .cake { width: 250px; }
-            .balloon { width: 150px; }
-            .photo { width: 120px; height: 120px; }
-        }
+
+        canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99; }
     </style>
 </head>
-<body>
-    <audio autoplay loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+<body onclick="handleGlobalClick()">
 
-    <!-- Step 1: Candle Blow -->
-    <div id="step1" class="step active">
-        <h1>🎂 Blow the candles 🎂</h1>
-        <p>(Tap anywhere to blow the candles)</p>
-        <div class="cake-container" onclick="blowCandles()">
-            <img src="cake.jpg" alt="Cake" class="cake">
-            <div class="flame"></div>
-            <div class="flame"></div>
-            <div class="flame"></div>
+    <audio id="audioPlayer" src="music.mp3" loop></audio>
+    <canvas id="mainCanvas"></canvas>
+
+    <div id="step1" class="scene active">
+        <h1 style="text-shadow: 0 5px 15px rgba(0,0,0,0.1);">🎂 Blow the candles 🎂</h1>
+        <div class="cake" id="cakeObj">
+            <div class="candle c1"><div class="flame"></div></div>
+            <div class="candle c2"><div class="flame"></div></div>
+            <div class="candle c3"><div class="flame"></div></div>
         </div>
+        <p style="margin-top: 40px; color: rgba(0,0,0,0.4); font-style: italic;">(Tap anywhere to blow the candles)</p>
     </div>
 
-    <!-- Step 2: Balloon Pop -->
-    <div id="step2" class="step">
+    <div id="step2" class="scene">
         <h1>🎈 Click the balloon 🎈</h1>
-        <img src="balloon.jpg" alt="Balloon" class="balloon" onclick="popBalloon()">
-    </div>
-
-    <!-- Step 3: Fireworks + Surprise -->
-    <div id="step3" class="step">
-        <div class="fireworks"></div>
-        <h1>🎆 Happy Birthday Sriza 🎆</h1>
-        <button class="surprise-btn" onclick="showSurprise()">There’s a surprise for you 💖</button>
-    </div>
-
-    <!-- Step 4: Final Message & Photos -->
-    <div id="step4" class="step">
-        <h1>💖 Happy Birthday My Darling Wifey 💖</h1>
-        <div class="message">
-            Today is not just your birthday, it’s the day the most beautiful soul came into this world 🌎.<br>
-            You are my calm in chaos, my smile on hard days, my peace when everything feels heavy 💗.<br><br>
-            Every time you laugh, my heart forgets how to beat properly. Loving you feels natural — like breathing 🌸.<br>
-            I promise to stand by you, love you endlessly, and choose you every single day ⌚.<br><br>
-            You are my everything, my inspiration, my happiness. May this day be as bright, colorful, and amazing as your soul ❤️.<br><br>
-            Happy Birthday my forever love ❤️
+        <div class="balloon" id="balloonObj" onclick="executePop(event)">
+            <div class="string"></div>
         </div>
-        <div class="photos">
-            <img src="photo1.jpg" alt="Photo 1" class="photo">
-            <img src="photo2.jpg" alt="Photo 2" class="photo">
-            <img src="photo3.jpg" alt="Photo 3" class="photo">
-            <img src="photo4.jpg" alt="Photo 4" class="photo">
-            <img src="photo5.jpg" alt="Photo 5" class="photo">
+    </div>
+
+    <div id="step3" class="scene">
+        <div style="z-index: 100; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 30px;">🎆 Happy Birthday Sweetheart 🎆</h1>
+            <button onclick="showFinal()">There’s a surprise for you 💖</button>
+        </div>
+    </div>
+
+    <div id="step4" class="final-scroll">
+        <div class="message-card">
+            <h2 style="color: var(--romantic-red);">💖 Happy Birthday My Darling Wifey 💖</h2>
+            <p>Today is not just your birthday, it’s the day the most beautiful soul came into this world 🌎.</p>
+            <p>You are my calm in chaos, my smile on hard days, my peace when everything feels heavy 💗.</p>
+            <p>Every time you laugh, my heart forgets how to beat properly. Loving you feels natural — like breathing 🌸.</p>
+            <p>I promise to stand by you, love you endlessly, and choose you every single day ⌚.</p>
+            <p>You are my everything, my inspiration, my happiness. May this day be as bright, colorful, and amazing as your soul ❤️.</p>
+            <h3 style="color: var(--romantic-red); margin-top: 30px;">Happy Birthday My Forever Love ❤️</h3>
+        </div>
+
+        <div class="photo-grid" id="photoGrid">
+            <img src="photo1.jpg">
+            <img src="photo2.jpg">
+            <img src="photo3.jpg">
+            <img src="photo4.jpg">
+            <img src="photo5.jpg">
         </div>
     </div>
 
     <script>
-        function blowCandles() {
-            const flames = document.querySelectorAll('.flame');
-            flames.forEach(flame => {
-                flame.style.display = 'none';
-                const smoke = document.createElement('div');
-                smoke.className = 'smoke';
-                smoke.style.left = flame.style.left;
-                document.querySelector('.cake-container').appendChild(smoke);
-                setTimeout(() => smoke.remove(), 1000);
-            });
-            setTimeout(() => {
-                document.getElementById('step1').classList.remove('active');
-                document.getElementById('step2').classList.add('active');
-            }, 1500);
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const audio = document.getElementById('audioPlayer');
+        let currentStep = 1;
+        let particles =;
+        let fireworks =;
+        let canvasActive = false;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function handleGlobalClick() {
+            // Audio Unlock Strategy 
+            if (currentStep === 1) {
+                audio.play();
+                const flames = document.querySelectorAll('.flame');
+                flames.forEach(f => f.style.display = 'none');
+                
+              [span_26](start_span)[span_26](end_span)  // Smoke logic 
+                setTimeout(() => {
+                    document.getElementById('step1').classList.remove('active');
+                    document.getElementById('step2').classList.add('active');
+                [span_32](start_span)[span_32](end_span)    currentStep = 2;
+                }, 1000);
+            }
         }
 
-        function popBalloon() {
-            const balloon = document.querySelector('.balloon');
-            balloon.style.display = 'none';
-            const burst = document.createElement('div');
-            burst.className = 'burst';
-            burst.style.left = balloon.offsetLeft + 'px';
-            burst.style.top = balloon.offsetTop + 'px';
-            document.getElementById('step2').appendChild(burst);
-            setTimeout(() => burst.remove(), 500);
-
-            // Trigger hearts and confetti
-            const container = document.getElementById('step2');
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = '❤️';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(heart);
-                setTimeout(() => heart.remove(), 3000);
+        // Particle Class for Heart Rain [span_94](start_span)[span_94](end_span)[span_95](start_span)[span_95](end_span)
+        class Heart {
+            constructor(x, y, isPop = false) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 15 + 10;
+                this.speedY = isPop? (Math.random() - 0.5) * 10 : Math.random() * 2 + 1;
+                this.speedX = isPop? (Math.random() - 0.5) * 10 : (Math.random() - 0.5) * 2;
+                this.opacity = 1;
+                this.isPop = isPop;
             }
-            for (let i = 0; i < 20; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti-piece';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#ff477e';
+                ctx.beginPath();
+                const r = this.size / 20; // Scale factor [span_96](start_span)[span_96](end_span)
+                ctx.moveTo(this.x, this.y);
+                for (let t = 0; t <= Math.PI * 2; t += 0.1) {
+                    const hx = 16 * Math.pow(Math.sin(t), 3);
+                    const hy = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+                    ctx.lineTo(this.x + hx * r, this.y - hy * r);
+                }
+                ctx.fill();
+                ctx.restore();
             }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.isPop) {
+                    this.opacity -= 0.01;
+                    this.speedY += 0.1; // gravity 
+                } else if (this.y > canvas.height) {
+                    this.y = -20;
+                }
+ [span_67](start_span)[span_67](end_span)           }
+        }
 
+        function executePop(e) {
+            e.stopPropagation();
+            document.getElementById('balloonObj').style.display = 'none';
+            // Burst particles 
+            for (let i = 0; i < 40; i++) particles.push(new Heart(e.clientX, e.clientY, true));
+            // Start heart rain 
+         [span_57](start_span)[span_57](end_span)   for (let i = 0; i < 30; i++) particles.push(new Heart(Math.random() * canvas.width, -50));
+            
+            canvasActive = tru[span_55](start_span)[span_55](end_span)e;
+            animate();
+            
             setTimeout(() => {
                 document.getElementById('step2').classList.remove('active');
                 document.getElementById('step3').classList.add('active');
-            }, 3000);
+                currentStep = 3;
+            }, 1000);
         }
 
-        function showSurprise() {
+        // Firework Physics Engine 
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canv[span_71](start_span)[span_71](end_span)as.width;
+                this.y = canvas.height;
+                this.tx = this.x;
+                this.ty = Math.random() * (canvas.height / 2);
+                this.speed = 4;
+                this.exploded = false;
+                this.shards =;
+                this.hue = Math.random() * 360;
+            }
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.speed;
+                    if (this.y <= this.ty) {
+                        this.exploded = true;
+                        for (let i = 0; i < 60; i++) {
+                            const angle = Math.random() * Math.PI * 2;
+                            const force = Math.random() * 6 + 2;
+                            this.shards.push({
+                                x: this.x, y: this.y,
+                                vx: Math.cos(angle) * force,
+                                vy: Math.sin(angle) * force,
+                                alpha: 1
+                            });
+                        }
+                    }
+                }
+                this.shards.forEach((s, i) => {
+                    s.x += s.vx; s.y += s.vy;
+                    s.vy += 0.1; // gravity 
+                    s.alpha -= 0.015;
+                    if (s.alpha <= 0) this.shards.splice(i, 1);
+        [span_68](start_span)[span_68](end_span)        });
+            }
+            draw() {
+                if (!this.exploded) {
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI*2); ctx.fill();
+                }
+                this.shards.forEach(s => {
+                    ctx.globalAlpha = s.alpha;
+                    ctx.fillStyle = `hsl(${this.hue}, 100%, 60%)`;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, 2, 0, Math.PI*2); ctx.fill();
+                });
+            }
+        }
+
+        function animate() {
+            if (!canvasActive) return;
+            // Trails effect 
+            ctx.fillStyle = currentStep === 3? 'rgba(0,0,0,0.1)' : 'rgba(255,182,190,0.3)';
+            ctx.fillRect(0, 0,[span_62](start_span)[span_62](end_span)[span_65](start_span)[span_65](end_span) canvas.width, canvas.height);
+
+            particles.forEach((p, i) => {
+                p.update(); p.draw();
+                if (p.isPop && p.opacity <= 0) particles.splice(i, 1);
+            });
+
+            if (currentStep === 3) {
+                if (Math.random() < 0.05) fireworks.push(new Firework());
+                fireworks.forEach((f, i) => {
+                    f.update(); f.draw();
+                    if (f.exploded && f.shards.length === 0) fireworks.splice(i, 1);
+                });
+            }
+            requestAnimationFrame(animate);
+        }
+
+        function showFinal() {
             document.getElementById('step3').classList.remove('active');
-            document.getElementById('step4').classList.add('active');
+            const final = document.getElementById('step4');
+            final.style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('photoGrid').classList.add('reveal');
+            }, 100);
+            currentStep = 4;
+            // Allow vertical scrolling for final content [span_97](start_span)[span_97](end_span)
+            document.body.style.overflowY = 'auto';
         }
     </script>
 </body>
