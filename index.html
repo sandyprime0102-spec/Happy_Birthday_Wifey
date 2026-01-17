@@ -102,7 +102,7 @@ img {
 <!-- STEP 2 -->
 <section id="step2" class="fade">
   <h2>🎈 Click the balloon 🎈</h2>
-  <button onclick="next(3)">POP 🎈</button>
+  <button onclick="balloonPop(this); next(3); fireworks();">POP 🎈</button>
 </section>
 
 <!-- STEP 3 -->
@@ -133,7 +133,7 @@ img {
 </section>
 
 <div class="hearts" id="hearts"></div>
-
+<div id="fireworks-container"></div>
 <script>
 let step = 1;
 document.body.onclick = () => {
@@ -151,14 +151,60 @@ function next(n){
 }
 
 function hearts(){
-  for(let i=0;i<20;i++){
-    let s=document.createElement("span");
-    s.innerHTML="❤️";
-    s.style.left=Math.random()*100+"%";
-    s.style.animationDuration=(3+Math.random()*3)+"s";
-    document.getElementById("hearts").appendChild(s);
-    setTimeout(()=>s.remove(),6000);
-  }
+    for(let i=0;i<30;i++){ // more hearts for fuller effect
+        let s = document.createElement("span");
+        s.innerHTML = "❤️";
+
+        // random start position along the width
+        s.style.left = Math.random()*100 + "%";
+
+        // random size
+        let size = Math.random()*20 + 10; // 10px to 30px
+        s.style.fontSize = size + "px";
+
+        // random color gradient hearts
+        let colors = ["#FF69B4", "#FF1493", "#FFB6C1", "#FFC0CB", "#FF6347"];
+        s.style.color = colors[Math.floor(Math.random()*colors.length)];
+
+        // animation duration and float speed
+        let duration = Math.random()*2 + 3; // 3s to 5s
+        s.style.animation = `float ${duration}s ease-out forwards`;
+
+        document.getElementById("hearts").appendChild(s);
+
+        // remove heart after animation ends
+        setTimeout(()=>s.remove(), duration*1000);
+    }
+}
+  // FIREWORKS FUNCTION
+function fireworks(){
+    let duration = 4000; // total fireworks show duration 4s
+    let interval = 400; // new explosion every 0.4s
+    let endTime = Date.now() + duration;
+
+    function explode(){
+        if(Date.now() > endTime) return; // stop after duration
+        for(let i=0;i<20;i++){
+            const fire = document.createElement("div");
+            fire.className = "firework";
+            fire.style.left = Math.random() * window.innerWidth + "px";
+            fire.style.top = Math.random() * window.innerHeight * 0.6 + "px";
+            fire.style.width = Math.random()*5 + 3 + "px";
+            fire.style.height = Math.random()*5 + 3 + "px";
+            fire.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,50%), #fff)`;
+            document.body.appendChild(fire);
+            setTimeout(() => fire.remove(), 800);
+        }
+        setTimeout(explode, interval); // repeat
+    }
+
+    explode();
+}
+
+// BALLOON POP FUNCTION
+function balloonPop(el) {
+  el.style.animation = "balloonPop 0.5s forwards";
+  setTimeout(() => el.remove(), 500);
 }
 </script>
 
