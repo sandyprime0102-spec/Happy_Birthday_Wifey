@@ -5,25 +5,28 @@
 <title>Happy Birthday My Darling Wifey 🎂🎁❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+/* GENERAL STYLES */
 body {
   margin: 0;
-  background: black;
-  color: white;
+  background: linear-gradient(120deg, #ff9a9e, #fad0c4);
   font-family: 'Arial', sans-serif;
   text-align: center;
   overflow-x: hidden;
+  overflow-y: hidden;
+  color: #fff;
 }
-
 section {
   display: none;
   min-height: 100vh;
   padding: 40px 20px;
+  position: relative;
 }
-
 .active {
   display: block;
 }
-
+h1,h2,p {
+  margin: 10px 0;
+}
 button {
   background: pink;
   border: none;
@@ -31,47 +34,53 @@ button {
   border-radius: 30px;
   font-size: 16px;
   cursor: pointer;
+  transition: transform 0.3s;
+}
+button:hover {
+  transform: scale(1.1);
 }
 
+/* FADE ANIMATION */
 .fade {
   animation: fade 1.5s ease-in-out;
 }
-
 @keyframes fade {
   from {opacity: 0;}
   to {opacity: 1;}
 }
 
+/* CONFETTI */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: red;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: confetti-fall 5s linear forwards;
+}
+@keyframes confetti-fall {
+  0% {transform: translateY(-50px) rotate(0deg);}
+  100% {transform: translateY(100vh) rotate(360deg);}
+}
+
+/* HEARTS */
 .hearts {
   position: fixed;
   bottom: 0;
   width: 100%;
   pointer-events: none;
 }
-
 .hearts span {
   position: absolute;
   animation: float 6s linear infinite;
 }
-
 @keyframes float {
   0% {transform: translateY(0); opacity: 1;}
   100% {transform: translateY(-100vh); opacity: 0;}
 }
 
-img {
-  width: 90%;
-  max-width: 300px;
-  border-radius: 20px;
-  margin: 15px 0;
-}
-  /* Balloon pop effect */
-@keyframes balloonPop {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
-}
-
-/* Fireworks effect */
+/* FIREWORKS */
 .firework {
   position: fixed;
   width: 5px;
@@ -81,132 +90,253 @@ img {
   pointer-events: none;
   animation: explode 0.8s ease-out forwards;
 }
-
 @keyframes explode {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(8); opacity: 0; }
 }
+
+/* BALLOON POP */
+@keyframes balloonPop {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* CAKE */
+#cake {
+  width: 250px;
+  max-width: 80%;
+  margin: 20px auto;
+  position: relative;
+}
+.candle {
+  width: 10px;
+  height: 40px;
+  background: yellow;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+.flame {
+  width: 12px;
+  height: 12px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: -1px;
+  animation: flicker 0.5s infinite;
+}
+@keyframes flicker {
+  0% {opacity: 1;}
+  50% {opacity: 0.5;}
+  100% {opacity: 1;}
+}
+
+/* BALLOON */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 100px;
+  height: 130px;
+  background: red;
+  border-radius: 50% 50% 50% 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  animation: rise 3s forwards;
+}
+@keyframes rise {
+  0% {bottom: -150px;}
+  100% {bottom: 50%; }
+}
+
+/* PHOTO CONTAINER */
+.photos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+.photos-container img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
 </style>
 </head>
-
 <body>
 
 <audio id="music" src="music.mp3" loop></audio>
 
-<!-- STEP 1 -->
+<!-- STEP 1: CAKE & CANDLES -->
 <section class="active fade" id="step1">
   <h2>🎂 Blow the candles 🎂</h2>
-  <p>(Tap anywhere)</p>
+  <div id="cake">
+    <img src="cake.png" alt="Cake" style="width:100%; border-radius:20px;">
+    <div class="candle" style="left:30%;"><div class="flame"></div></div>
+    <div class="candle" style="left:50%;"><div class="flame"></div></div>
+    <div class="candle" style="left:70%;"><div class="flame"></div></div>
+  </div>
+  <button id="blowBtn">Blow the candles 🍃</button>
 </section>
 
-<!-- STEP 2 -->
+<!-- STEP 2: BALLOON POP -->
 <section id="step2" class="fade">
   <h2>🎈 Click the balloon 🎈</h2>
-  <button onclick="balloonPop(this); next(3); fireworks();">POP 🎈</button>
+  <div class="balloon" id="balloon">Press Me 🎈</div>
 </section>
 
-<!-- STEP 3 -->
+<!-- STEP 3: FIREWORKS -->
 <section id="step3" class="fade">
-  <h2>🎆 Happy Birthday Sriza 🎆</h2>
+  <h2>🎆 Happy Birthday Cutie 🎆</h2>
   <button onclick="next(4)">There’s a surprise for you 💖</button>
 </section>
 
-<!-- STEP 4 -->
-<section id="step4" class="fade">
+<!-- STEP 4: BIRTHDAY MESSAGE -->
+<section id="step4" class="fade" style="background: linear-gradient(120deg, #f6d365, #fda085); color: #000;">
   <h1>💖 Happy Birthday My Darling Wifey 💖</h1>
-
   <p>
     Today is not just your birthday, it’s the day the most beautiful soul came into this world 🌎<br><br>
     You are my calm in chaos, my smile on hard days, my peace when everything feels heavy 💗<br><br>
     Every time you laugh, my heart forgets how to beat properly. Loving you feels natural — like breathing 🌸<br><br>
     I promise to stand by you, love you endlessly, and choose you every single day ⌚<br><br>
-    Happy Birthday my forever ❤️
+    You are my everything, my inspiration, my happiness. May this day be as bright, colorful, and amazing as your soul ❤️<br><br>
+    Happy Birthday my forever love ❤️
   </p>
-
-  <div id="photos" class="photos-container">
-    <img src="photo1.jpg" alt="Photo 1" class="birthday-photo">
-    <img src="photo2.jpg" alt="Photo 2" class="birthday-photo">
-    <img src="photo3.jpg" alt="Photo 3" class="birthday-photo">
-    <img src="photo4.jpg" alt="Photo 4" class="birthday-photo">
-    <img src="photo5.jpg" alt="Photo 5" class="birthday-photo">
+  <div class="photos-container">
+    <img src="photo1.jpg" alt="Photo 1">
+    <img src="photo2.jpg" alt="Photo 2">
+    <img src="photo3.jpg" alt="Photo 3">
+    <img src="photo4.jpg" alt="Photo 4">
+    <img src="photo5.jpg" alt="Photo 5">
   </div>
 </section>
 
 <div class="hearts" id="hearts"></div>
 <div id="fireworks-container"></div>
+<div id="confetti-container"></div>
+
 <script>
+// STEP CONTROL
 let step = 1;
+const music = document.getElementById("music");
 document.body.onclick = () => {
   if(step === 1){
-    document.getElementById("music").play();
-    next(2);
+    music.play();
   }
-};
+}
 
+// CAKE & CANDLE BLOWS
+const blowBtn = document.getElementById("blowBtn");
+blowBtn.onclick = () => {
+  // extinguish flames
+  document.querySelectorAll('.flame').forEach(f => f.style.display='none');
+  // confetti after blow
+  createConfetti();
+  setTimeout(()=> next(2), 2000);
+}
+
+// NEXT FUNCTION
 function next(n){
   document.getElementById("step"+step).classList.remove("active");
   step = n;
   document.getElementById("step"+step).classList.add("active");
-  hearts();
+
+  if(step === 3){
+    fireworks();
+  }
+  if(step === 4){
+    heartsRain();
+  }
 }
 
-function hearts(){
-    for(let i=0;i<30;i++){ // more hearts for fuller effect
-        let s = document.createElement("span");
-        s.innerHTML = "❤️";
-
-        // random start position along the width
-        s.style.left = Math.random()*100 + "%";
-
-        // random size
-        let size = Math.random()*20 + 10; // 10px to 30px
-        s.style.fontSize = size + "px";
-
-        // random color gradient hearts
-        let colors = ["#FF69B4", "#FF1493", "#FFB6C1", "#FFC0CB", "#FF6347"];
-        s.style.color = colors[Math.floor(Math.random()*colors.length)];
-
-        // animation duration and float speed
-        let duration = Math.random()*2 + 3; // 3s to 5s
-        s.style.animation = `float ${duration}s ease-out forwards`;
-
-        document.getElementById("hearts").appendChild(s);
-
-        // remove heart after animation ends
-        setTimeout(()=>s.remove(), duration*1000);
-    }
+// HEARTS RAIN
+function heartsRain(){
+  for(let i=0;i<50;i++){
+    let s = document.createElement("span");
+    s.innerHTML = "❤️";
+    s.style.left = Math.random()*100 + "%";
+    let size = Math.random()*25 + 10;
+    s.style.fontSize = size + "px";
+    let colors = ["#FF69B4","#FF1493","#FFB6C1","#FFC0CB","#FF6347"];
+    s.style.color = colors[Math.floor(Math.random()*colors.length)];
+    let duration = Math.random()*2 + 4;
+    s.style.animation = `float ${duration}s ease-out forwards`;
+    document.getElementById("hearts").appendChild(s);
+    setTimeout(()=> s.remove(), duration*1000);
+  }
 }
-  // FIREWORKS FUNCTION
+
+// CONFETTI
+function createConfetti(){
+  for(let i=0;i<100;i++){
+    let c = document.createElement("div");
+    c.className = "confetti-piece";
+    c.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+    c.style.left = Math.random()*100 + "%";
+    c.style.animationDuration = (Math.random()*3 + 3) + "s";
+    document.body.appendChild(c);
+    setTimeout(()=> c.remove(), 5000);
+  }
+}
+
+// FIREWORKS
 function fireworks(){
-    let duration = 4000; // total fireworks show duration 4s
-    let interval = 400; // new explosion every 0.4s
-    let endTime = Date.now() + duration;
-
-    function explode(){
-        if(Date.now() > endTime) return; // stop after duration
-        for(let i=0;i<20;i++){
-            const fire = document.createElement("div");
-            fire.className = "firework";
-            fire.style.left = Math.random() * window.innerWidth + "px";
-            fire.style.top = Math.random() * window.innerHeight * 0.6 + "px";
-            fire.style.width = Math.random()*5 + 3 + "px";
-            fire.style.height = Math.random()*5 + 3 + "px";
-            fire.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,50%), #fff)`;
-            document.body.appendChild(fire);
-            setTimeout(() => fire.remove(), 800);
-        }
-        setTimeout(explode, interval); // repeat
+  let duration = 5000;
+  let interval = 300;
+  let endTime = Date.now() + duration;
+  function explode(){
+    if(Date.now() > endTime) return;
+    for(let i=0;i<20;i++){
+      const fire = document.createElement("div");
+      fire.className = "firework";
+      fire.style.left = Math.random()*window.innerWidth+"px";
+      fire.style.top = Math.random()*window.innerHeight*0.6+"px";
+      fire.style.width = Math.random()*5+3+"px";
+      fire.style.height = Math.random()*5+3+"px";
+      fire.style.background = `radial-gradient(circle, hsl(${Math.random()*360},100%,50%), #fff)`;
+      document.body.appendChild(fire);
+      setTimeout(()=>fire.remove(),800);
     }
-
-    explode();
+    setTimeout(explode,interval);
+  }
+  explode();
 }
 
-// BALLOON POP FUNCTION
-function balloonPop(el) {
-  el.style.animation = "balloonPop 0.5s forwards";
-  setTimeout(() => el.remove(), 500);
+// BALLOON POP
+const balloon = document.getElementById("balloon");
+balloon.onclick = () => {
+  balloon.style.animation = "balloonPop 0.5s forwards";
+  createHearts(50);
+  setTimeout(()=> next(3), 1000);
+}
+
+function createHearts(num){
+  for(let i=0;i<num;i++){
+    let s = document.createElement("span");
+    s.innerHTML = "❤️";
+    s.style.left = Math.random()*100 + "%";
+    let size = Math.random()*25 + 10;
+    s.style.fontSize = size + "px";
+    let colors = ["#FF69B4","#FF1493","#FFB6C1","#FFC0CB","#FF6347"];
+    s.style.color = colors[Math.floor(Math.random()*colors.length)];
+    let duration = Math.random()*2 + 4;
+    s.style.animation = `float ${duration}s ease-out forwards`;
+    document.getElementById("hearts").appendChild(s);
+    setTimeout(()=> s.remove(), duration*1000);
+  }
 }
 </script>
-
 </body>
 </html>
